@@ -8,7 +8,9 @@ import {
     Mouse,
     TouchDevice,
     WebglGraphicsDevice,
-    GraphicsDevice
+    GraphicsDevice,
+    XRTYPE_VR,
+    XRSPACE_LOCALFLOOR,
 } from 'playcanvas';
 import { MiniStats } from 'playcanvas-extras';
 import { PCApp } from './pc-app';
@@ -87,7 +89,7 @@ class Scene extends EventHandler {
         this.app.loader.getHandler('texture').imgParser.crossOrigin = 'anonymous';
 
         // only render the scene when instructed
-        this.app.autoRender = false;
+        this.app.autoRender = true;
         this.app._allowResize = false;
         this.app.scene.clusteredLightingEnabled = false;
 
@@ -177,14 +179,17 @@ class Scene extends EventHandler {
             this.add(this.multiframe);
         }
 
-        if (config.xr.mode === XRModeConfig.placement && this.app.xr.supported) {
-            this.xrMode = new XRMode();
-            this.add(this.xrMode);
-        }
-
         if (config.debug?.ministats) {
             /* eslint-disable no-new */
             new MiniStats(this.app, null);
+        }
+    }
+
+    async startXRSession() {
+         // check if XR is supported and VR is available
+        if (this.app.xr.supported && this.app.xr.isAvailable(XRTYPE_VR)) {
+            // start VR using a camera component
+            this.camera.entity.camera.startXr(XRTYPE_VR, XRSPACE_LOCALFLOOR);
         }
     }
 

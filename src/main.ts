@@ -5,6 +5,9 @@ import { CreateDropHandler } from './drop-handler';
 import { initMaterials } from './material';
 import { EditorUI } from './editor-ui';
 import { registerEvents } from './editor-ops';
+import {    XRTYPE_VR, 
+    XRSPACE_LOCALFLOOR
+} from 'playcanvas';
 
 declare global {
     interface Window {
@@ -82,6 +85,20 @@ const initDropHandler = (canvas: HTMLCanvasElement, scene: Scene) => {
         }
     };
     document.body.appendChild(selector);
+
+    const button = document.createElement("button")
+        document.body.appendChild(button)
+        button.innerText = "Cast to Looking Glass"
+
+        button.style.position = "absolute";
+        button.style.zIndex = "1000"; // High z-index to ensure it is on top of all other elements
+        button.style.right = "0";
+        button.style.bottom = "0";
+
+        button.onclick = () => {
+            
+            window.scene.startXRSession()
+        }
 
     // also support user dragging and dropping a local glb file onto the canvas
     CreateDropHandler(canvas, urls => {

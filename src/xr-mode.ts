@@ -23,7 +23,7 @@ class XRMode extends Element {
             camera: this.scene.camera.entity,
             content: this.scene.contentRoot,
             contentBound: this.scene.bound,
-            showUI: config.xr.showControls,
+            showUI: true,
             startArImgSrc: arModeImage.src,
             stopArImgSrc: arCloseImage.src
         });
