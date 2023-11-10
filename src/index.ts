@@ -10,7 +10,7 @@ import './style.scss';
 console.log(`Supersplat v${supersplatVersion} | PCUI v${pcuiVersion} (${pcuiRevision}) | PlayCanvas Engine v${engineVersion} (${engineRevision})`);
 
 LookingGlassWebXRPolyfill.init({
-    targetY: 1,
+    targetY: -1,
     targetZ: 0,
     targetDiam: 3,
     fovy: (14 * Math.PI) / 180,
